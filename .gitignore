@@ -1,0 +1,11 @@
+venv
+.env
+__pycache__/
+*.pyc
+.DS_Store
+venv/
+mlruns/
+.ipynb_checkpoints
+Healthcare_appointment.egg-info/
+logs/
+
