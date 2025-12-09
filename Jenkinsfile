@@ -18,16 +18,19 @@ pipeline{
 
         stage('Making a virtual environment.....'){
             steps{
-                script{
-                    echo 'Making a our virtual environment....'
-                    sh '''
-                    python -m venv ${VENV_DIR}
-                    . ${VENV_DIR}/bin/activate
-                    pip install --upgrade pip
-                    pip install -e .
-                    pip install dvc 
-                    '''
+                dir("${env.WORKSPACE}"){
+                    script{
+                        echo 'Making a our virtual environment....'
+                        sh '''
+                        python -m venv ${VENV_DIR}
+                        . ${VENV_DIR}/bin/activate
+                        pip install --upgrade pip
+                        pip install -e .
+                        pip install dvc 
+                        '''
+                    }    
                 }
+
             }
         }
 
