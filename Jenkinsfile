@@ -7,19 +7,19 @@ pipeline{
     }
 
     stages{
-        stage('Cloning Github repo to Jenkins'){
+        stage('Cloning from Github....'){
             steps{
                 script{
-                    echo 'Cloning Github repo to Jenkins............'
+                    echo 'Cloning from Github....'
                     checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/data-guru0/MLOPS-COURSE-PROJECT-1.git']])
                 }
             }
         }
 
-        stage('Setting up our Virtual Environment and Installing dependancies'){
+        stage('Making a virtual environment.....'){
             steps{
                 script{
-                    echo 'Setting up our Virtual Environment and Installing dependancies............'
+                    echo 'Making a our virtual environment....'
                     sh '''
                     python -m venv ${VENV_DIR}
                     . ${VENV_DIR}/bin/activate
@@ -35,7 +35,7 @@ pipeline{
             steps{
                 withCredentials([file(credentialsId: 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
                     script{
-                        echo 'Building and Pushing Docker Image to GCR.............'
+                        echo 'DVC Pul.............'
                         sh '''
                         . ${VENV_DIR}/bin/activate
                         dvc pull
