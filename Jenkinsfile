@@ -1,15 +1,48 @@
 pipeline{
     agent any
-    
+
+    environment {
+        VENV_DIR = 'venv'
+        
+    }
+
     stages{
         stage('Cloning Github repo to Jenkins'){
             steps{
                 script{
                     echo 'Cloning Github repo to Jenkins............'
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/Rishu0200/Hospital-appointment.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/data-guru0/MLOPS-COURSE-PROJECT-1.git']])
                 }
             }
-        }                               
-        
+        }
+
+        stage('Setting up our Virtual Environment and Installing dependancies'){
+            steps{
+                script{
+                    echo 'Setting up our Virtual Environment and Installing dependancies............'
+                    sh '''
+                    python -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                    pip install -e .
+                    pip install dvc 
+                    '''
+                }
+            }
+        }
+
+        stage('dvc pull'){
+            steps{
+                withCredentials([file(credentialsId: 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]){
+                    script{
+                        echo 'Building and Pushing Docker Image to GCR.............'
+                        sh '''
+                        . ${VENV_DIR}/bin/activate
+                        dvc pull
+                        '''
+                    }
+                }
+            }
+        }        
     }
 }
