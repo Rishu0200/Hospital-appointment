@@ -51,7 +51,7 @@ def index():
             # Showed_up not known at prediction time
         }])
 
-        # ---------- 3. Apply same preprocessing logic (single row) ----------
+        # ---------- 3. Feature engineering ----------
         # Age_capped
         df["Age_capped"] = df["Age"].clip(upper=100)
 
