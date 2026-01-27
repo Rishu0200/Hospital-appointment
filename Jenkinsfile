@@ -44,14 +44,26 @@ pipeline{
                     script{
                         echo 'Building and Pushing Docker Image to GCR.............'
                         sh '''
+                            set -e  # Exit on any error
+                            
                             export PATH=$PATH:${GCLOUD_PATH}
-
+                            
+                            echo "Authenticating with GCP..."
                             gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                            
+                            echo "Setting GCP project..."
                             gcloud config set project ${GCP_PROJECT}
-                            gcloud auth configure-docker --quiet
-
+                            
+                            echo "Configuring Docker for GCR..."
+                            gcloud auth configure-docker gcr.io --quiet
+                            
+                            echo "Building Docker image..."
                             docker build -t gcr.io/${GCP_PROJECT}/ml-project:latest .
-                            docker push gcr.io/${GCP_PROJECT}/ml-project:latest 
+                            
+                            echo "Pushing Docker image to GCR..."
+                            docker push gcr.io/${GCP_PROJECT}/ml-project:latest
+                            
+                            echo "Image pushed successfully!"
                         '''
                     }
                 }
@@ -60,7 +72,7 @@ pipeline{
 
         stage('Deploy to Google Cloud Run'){
             steps{
-                withCredentials([file(credentialsId: 'HOSPITAL-GCP-KEY', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){  // Fixed: Use same credential ID
+                withCredentials([file(credentialsId: 'HOSPITAL-GCP-KEY', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){  
                     script{
                         echo 'Deploy to Google Cloud Run.............'
                         sh '''
