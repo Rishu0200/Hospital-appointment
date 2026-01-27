@@ -4,7 +4,7 @@ pipeline{
     environment {
         VENV_DIR = 'venv'
         GCP_PROJECT = "hospital-appointment-479317"
-        GCLOUD_PATH = "/usr/bin"  // Changed: gcloud is installed system-wide
+        GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
     }
     
     stages{
@@ -21,7 +21,7 @@ pipeline{
                         ]]
                     )
                 }
-            }  // Added missing closing brace
+            }  
         }
 
         stage('Setting up our Virtual Environment and Installing dependancies'){
