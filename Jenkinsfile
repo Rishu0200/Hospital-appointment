@@ -12,14 +12,7 @@ pipeline{
             steps{
                 script{
                     echo 'Cloning Github repo to Jenkins............'
-                    checkout scmGit(
-                        branches: [[name: '*/main']], 
-                        extensions: [], 
-                        userRemoteConfigs: [[
-                            credentialsId: 'Hospital-github-token', 
-                            url: 'https://github.com/Rishu0200/Hospital-appointment.git'
-                        ]]
-                    )
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB-TOKEN-Hospital', url: 'https://github.com/Rishu0200/Hospital-appointment.git']])
                 }
             }  
         }
