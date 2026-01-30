@@ -83,17 +83,15 @@ Training the Model
 Run the complete ML pipeline:
 python pipeline/training_pipeline.py
 
+## Running the Web Application
+python application.py
+
 ```
----------------------------------------------------------------
+The Flask app will start at http://localhost:5000 where you can:
 
-**This will:
-
-**Download data from GCS
-**Split into train/test sets
-**Preprocess the data
-**Train and tune the LightGBM model
-**Log metrics and model artifacts with MLflow
-
+Enter patient details through the web form
+Get real-time appointment show-up predictions
+View prediction probability
 Making Predictions
 Input features:
 
@@ -107,6 +105,96 @@ Handcap: Handicap status (0/1)
 SMS Received: SMS reminder received (0/1)
 Neighbourhood: Appointment location
 Date Difference: Days until appointment
+🤖 Model Details
+Algorithm
+LightGBM (Light Gradient Boosting Machine)
+
+Fast and efficient gradient boosting framework
+Handles imbalanced classification well
+Interpretable feature importance
+Hyperparameter Tuning
+Method: RandomizedSearchCV
+Cross-validation: 5-fold CV
+Optimization Metric: F1-Score
+Number of iterations: Configurable in model_params.py
+Key Parameters
+Number of leaves (num_leaves)
+Learning rate
+Number of estimators
+Min child samples
+Subsample ratio
+Column sampling
+📊 Performance Metrics
+Model evaluation metrics tracked via MLflow:
+
+Accuracy: Overall prediction correctness
+Precision: True positives among predicted positives
+Recall: True positives among actual positives
+F1-Score: Harmonic mean of precision and recall
+Training runs are logged in mlruns directory for experiment comparison.
+
+🐳 Deployment
+Docker Deployment
+Build the Docker image:
+
+```bash
+docker build -t healthcare-appointment:latest .
+```
+Run the container:
+```bash
+docker run -p 5000:5000 healthcare-appointment:latest
+```
+Jenkins CI/CD
+Automated pipeline defined in Jenkinsfile handles:
+
+Automated testing
+Model training
+Image building and pushing
+Deployment to production
+📦 Dependencies
+Data Processing: pandas, numpy
+ML: scikit-learn, LightGBM, imbalanced-learn
+Experiment Tracking: MLflow
+Web Framework: Flask
+Cloud: google-cloud-storage
+Others: PyYAML, python-dotenv, scipy
+See requirements.txt for complete list with versions.
+
+🔧 Configuration
+Config Files
+config.yaml: Main configuration (bucket name, file name, train ratio)
+paths_config.py: File paths for data and models
+model_params.py: LightGBM and hyperparameter tuning settings
+Environment Variables
+Create a .env file:
+```bash
+GOOGLE_APPLICATION_CREDENTIALS=<path-to-gcs-credentials>
+```
+
+📝 Logging
+Comprehensive logging throughout the pipeline:
+
+Logs saved in logs directory
+Debug and error tracking
+Pipeline execution monitoring
+🤝 Contributing
+Contributions are welcome! Please:
+
+Create a feature branch
+Make your changes
+Test thoroughly
+Submit a pull request
+📧 Contact
+For questions or support, contact: rishabhanand0200@gmail.com
+
+📄 License
+This project is licensed under the MIT License.
+
+Last Updated: January 2026
+
+
+
+
 
 
 
