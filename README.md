@@ -1,4 +1,7 @@
-### HOSPITAL APPOINTMENT APP 
+# Healthcare Appointment No-Show Prediction
 
-This is my app..
+A machine learning project that predicts whether patients will show up for their healthcare appointments, helping hospitals reduce no-shows and optimize scheduling.
+
+
+
 
