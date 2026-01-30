@@ -83,6 +83,7 @@ Training the Model
 Run the complete ML pipeline:
 python pipeline/training_pipeline.py
 
+```
 ---------------------------------------------------------------
 
 **This will:
@@ -106,6 +107,8 @@ Handcap: Handicap status (0/1)
 SMS Received: SMS reminder received (0/1)
 Neighbourhood: Appointment location
 Date Difference: Days until appointment
+
+
 
 
 
