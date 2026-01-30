@@ -55,6 +55,21 @@ Healthcare_appointment/
 └── Jenkinsfile # CI/CD pipeline configuration
 
 
+## 🚀 Installation
+
+### Prerequisites
+- Python 3.8+
+- Google Cloud Storage credentials (for data ingestion)
+- pip or conda
+
+### Setup
+
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd Healthcare_appointment
+
+
 
 
 
