@@ -71,6 +71,50 @@ cd Healthcare_appointment
 
 
 
+2. Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+**3. Install dependencies**
+pip install -r requirements.txt
+
+##💻 Usage
+Training the Model
+Run the complete ML pipeline:
+python pipeline/training_pipeline.py
+
+---------------------------------------------------------------
+
+**This will:
+
+**Download data from GCS
+**Split into train/test sets
+**Preprocess the data
+**Train and tune the LightGBM model
+**Log metrics and model artifacts with MLflow
+
+Making Predictions
+Input features:
+
+Gender: Female (F) / Male (M)
+Age: Patient age
+Scholarship: Scholarship status (0/1)
+Hypertension: Medical condition (0/1)
+Diabetes: Medical condition (0/1)
+Alcoholism: Medical condition (0/1)
+Handcap: Handicap status (0/1)
+SMS Received: SMS reminder received (0/1)
+Neighbourhood: Appointment location
+Date Difference: Days until appointment
+
+
+
+
+
+
+
+
+
 
 
 
